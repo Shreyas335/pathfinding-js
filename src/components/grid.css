@@ -13,3 +13,7 @@
 .active-cell {
     background-color: #ff312e
 }
+
+.wall-cell {
+    background-color: #eeeeee
+}
