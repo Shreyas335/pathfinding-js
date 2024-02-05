@@ -1,0 +1,15 @@
+.grid-container {
+    display: grid;
+}
+
+.grid-cell {
+    width: 14px;
+    height: 14px;
+    border: 1px solid #292929;
+    cursor: pointer;
+}
+
+
+.active-cell {
+    background-color: #ff312e
+}
