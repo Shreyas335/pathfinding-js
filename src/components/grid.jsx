@@ -17,6 +17,8 @@ const Grid = ({ rows, columns }) => {
         e.preventDefault();
 
     };
+
+    
     
     const handleMU = () => {
         setIsDragging(false);
@@ -41,6 +43,7 @@ const Grid = ({ rows, columns }) => {
         setCurrentColor(getColor());
     };
 
+
     const toggle2 = (row, col) => {
         if(isDragging){
             const newGrid = [...grid];
@@ -53,6 +56,7 @@ const Grid = ({ rows, columns }) => {
     
             setCurrentColor(getColor());
         }
+        
     };
         
 
@@ -63,7 +67,6 @@ const Grid = ({ rows, columns }) => {
             onMouseDown={handleMD} 
             onMouseUp={handleMU}
             onMouseLeave={handleMU}
-            //onMouseEnter={handleMU}
 
             onDragStart={preventDragHandler}
             
@@ -75,12 +78,15 @@ const Grid = ({ rows, columns }) => {
                         key={`${rowIndex}-${colIndex}`}
                         className={`grid-cell ${grid[rowIndex][colIndex] == 1  ? 'active-cell' : grid[rowIndex][colIndex] == 2 ? 'wall-cell' : ''}`}
                         
-                        onMouseEnter={() => toggle2(rowIndex, colIndex)}
-                        onMouseDown={() => toggle2(rowIndex, colIndex)}
-                        onClick={() => toggleCell(rowIndex, colIndex)}
+                        onMouseLeave={() => toggle2(rowIndex, colIndex)}
+                        //Grid cell mouse up triggers before grid container mouse up
+                        onMouseUp={() => toggle2(rowIndex, colIndex)}
+                        //onClick={() => toggle2(rowIndex, colIndex)}
+                        onDoubleClick={() => toggleCell(rowIndex, colIndex)}
                         draggable={false}
                         
-                    />
+                    />   
+                    
                 ))
             )}
         </div>
