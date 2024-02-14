@@ -8,7 +8,7 @@ function App() {
       <div>
       
       </div>
-      <Grid rows={50} columns={50}/>
+      <Grid rows={25} columns={25}/>
       <div>
 
       </div>

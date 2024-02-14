@@ -3,8 +3,8 @@
 }
 
 .grid-cell {
-    width: 14px;
-    height: 14px;
+    width: 25px;
+    height: 25px;
     border: 1px solid #ff007b;
     cursor: pointer;
 }

@@ -63,7 +63,7 @@ const Grid = ({ rows, columns }) => {
     return (
         <div 
             className="grid-container" 
-            style={{ gridTemplateColumns: `repeat(${columns}, 14px)` } } 
+            style={{ gridTemplateColumns: `repeat(${columns}, 25px)` } } 
             onMouseDown={handleMD} 
             onMouseUp={handleMU}
             onMouseLeave={handleMU}
