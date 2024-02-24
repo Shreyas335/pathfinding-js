@@ -1,7 +1,5 @@
-
-
 import React, { useState } from 'react';
-import './Grid.css'; // Import the CSS file
+import './grid.css'; // Import the CSS file
 
 const Grid = ({ rows, columns }) => {
     const [grid, setGrid] = useState(Array.from({ length: rows }, () => Array(columns).fill(0)));
@@ -17,8 +15,6 @@ const Grid = ({ rows, columns }) => {
         e.preventDefault();
 
     };
-
-    
     
     const handleMU = () => {
         setIsDragging(false);
@@ -58,6 +54,10 @@ const Grid = ({ rows, columns }) => {
         }
         
     };
+
+    const getGrid = () => {
+        return grid;
+    }
         
 
     return (

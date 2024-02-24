@@ -1,0 +1,32 @@
+.container {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #1a1a1a;
+}
+  
+.controls {
+display: flex;
+gap: 10px;
+}
+
+button {
+padding: 8px 16px;
+border: none;
+border-radius: 4px;
+background-color: #007bff;
+color: #fff;
+cursor: pointer;
+}
+
+button:hover {
+background-color: #0056b3;
+}
+
+select {
+padding: 4px;
+border: 1px solid #ccc;
+border-radius: 10px;
+font-size: 16px;
+}
