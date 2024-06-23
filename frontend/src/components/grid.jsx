@@ -22,14 +22,15 @@ const Grid = ({ rows, columns }) => {
 
     const getColor = (color) => {
         if (color == 0) {
-            return '#000000';
+            return '#000000';        
         } else if (color === 1) {
             return '#fc0000';
+    
         } else if (color === 2){
             return '#eeeeee'
         }
     };
-
+    /*
     const toggleCell = (row, col) => {
         const newGrid = [...grid];
         newGrid[row][col]++;
@@ -38,14 +39,15 @@ const Grid = ({ rows, columns }) => {
 
         setCurrentColor(getColor());
     };
+    */
 
 
-    const toggle2 = (row, col) => {
+    const toggleCell = (row, col) => {
         if(isDragging){
             const newGrid = [...grid];
             if (newGrid[row][col] == 2) {
                 newGrid[row][col] = 0
-            }else{
+            }else if (newGrid[row][col] == 0){
                 newGrid[row][col] = 2
             }
             setGrid(newGrid);
@@ -55,8 +57,14 @@ const Grid = ({ rows, columns }) => {
         
     };
 
-    const getGrid = () => {
-        return grid;
+    const handleRightClick = (rowIndex, colIndex) => {
+        const newGrid = [...grid];
+     
+                newGrid[rowIndex][colIndex] = 1
+           
+            setGrid(newGrid);
+    
+            setCurrentColor(getColor());
     }
         
 
@@ -77,13 +85,19 @@ const Grid = ({ rows, columns }) => {
                     <div
                         key={`${rowIndex}-${colIndex}`}
                         className={`grid-cell ${grid[rowIndex][colIndex] == 1  ? 'active-cell' : grid[rowIndex][colIndex] == 2 ? 'wall-cell' : ''}`}
+                        onContextMenu={(event) => {
+                            event.preventDefault();
+                            handleRightClick(rowIndex, colIndex);
+                        }}
                         
-                        onMouseLeave={() => toggle2(rowIndex, colIndex)}
+                        onMouseLeave={() => toggleCell(rowIndex, colIndex)}
                         //Grid cell mouse up triggers before grid container mouse up
-                        onMouseUp={() => toggle2(rowIndex, colIndex)}
+                        onMouseUp={() => toggleCell(rowIndex, colIndex)}
                         //onClick={() => toggle2(rowIndex, colIndex)}
-                        onDoubleClick={() => toggleCell(rowIndex, colIndex)}
+                        //onDoubleClick={() => toggleCell(rowIndex, colIndex)}
                         draggable={false}
+
+                        
                         
                     />   
                     
