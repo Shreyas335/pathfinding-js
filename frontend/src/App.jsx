@@ -1,14 +1,12 @@
-
-import './App.css';
-import Grid from './components/grid';
-import Controls from './components/Controls';
+import React from 'react';
+import Combined from './components/CombinedComponents'
 
 function App() {
   return (
     <div id="app">
       <div style={{ display: 'flex' }}>
-      <Controls/>
-      <Grid rows={25} columns={25}/>
+      <Combined/>
+      
       </div>
     </div>
   );
