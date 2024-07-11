@@ -26,6 +26,14 @@ const Grid = forwardRef(({ rows, columns }, ref) => {
     e.preventDefault();
   };
 
+
+  const resultGrid = (array) => {
+    setGrid(array)
+  }
+
+
+  
+
   const getColor = (cellValue) => {
     switch(cellValue) {
       case 1:
@@ -37,13 +45,18 @@ const Grid = forwardRef(({ rows, columns }, ref) => {
     }
   };
 
+  const getGrid = () => {
+    return grid
+  }
+  
+
   const clearMaze = () => {
     const newGrid = grid.map(row => row.map(() => 0));
     setGrid(newGrid);
   };
 
   useImperativeHandle(ref, () => ({
-    clearMaze,
+    clearMaze, getGrid, resultGrid,
   }));
 
   const toggleCell = (row, col) => {
@@ -94,14 +107,56 @@ Grid.propTypes = {
 // Define Controls component
 const Controls = () => {
   const gridRef = useRef(null); // Create a ref to hold the Grid component instance
-  const [selectedMaze, setSelectedMaze] = useState('');
+  const [selectedAlgorithm, setSelectedAlgo] = useState('');
 
   
 
-  const selectMaze = (event) => {
-    setSelectedMaze(event.target.value);
+  const selectedAlgo = (event) => {
+    setSelectedAlgo(event.target.value);
   };
+  const sendData = async () => {
+    let operation = 0
+    console.log(selectedAlgorithm)
+    switch (selectedAlgorithm){
+      case "option1":
+        operation = 1;
+        break;
+      case "option2":
+        operation = 2;
+        break;
+      case "option3":
+        operation = 3;
+        break;
+      case "option4":
+        operation = 4;
+        break;
+      case "option5":
+        operation = 5;
+        break;
+      default:
+        operation = -1
+        break;
+    }
+        
+    const response = await fetch('http://localhost:8000/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ array: gridRef.current.getGrid(), operation: operation }),
+      });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    
+    const result = await response.json();
+    console.log(result['result'])
+    
+    gridRef.current.resultGrid(result['result'])
 
+
+    
+};
   const clearGrid = () => {
     if (gridRef.current) {
       gridRef.current.clearMaze(); // Call clearMaze method through ref
@@ -113,7 +168,7 @@ const Controls = () => {
       <div className="joined-border">
         <h2>Maze Controls</h2>
         <div className="controls">
-          <select value={selectedMaze} onChange={selectMaze}>
+          <select value={selectedAlgorithm} onChange={selectedAlgo}>
             <option value="">Select an algorithm</option>
             <option value="option1">Dijkstra's algorithm</option>
             <option value="option2">A* search algorithm</option>
@@ -121,7 +176,7 @@ const Controls = () => {
             <option value="option4">Depth-first search</option>
             <option value="option5">Bellman-Ford algorithm</option>
           </select>
-          <button onClick={clearGrid}>Compute</button>
+          <button onClick={sendData}>Compute</button>
           <button onClick={clearGrid}>Clear</button>
         </div>
       </div>
